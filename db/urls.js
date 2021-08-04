@@ -1,20 +1,22 @@
-const Joi = require('joi');
-const db = require('./connection');
+const Joi = require("joi");
+const db = require("./connection");
 
-const urls = db.get('urls');
+const urls = db.get("urls");
 
-const schema = Joi.object().keys({
-  name: Joi.string().token().min(1).max(100).required(),
-  url: Joi.string().uri({
-    scheme: [
-      /https?/
-    ]
-  }).required()
-}).with('name', 'url');
+const schema = Joi.object()
+  .keys({
+    name: Joi.string().token().min(1).max(100).required(),
+    url: Joi.string()
+      .uri({
+        scheme: [/https?/],
+      })
+      .required(),
+  })
+  .with("name", "url");
 
 function find(name) {
   return urls.findOne({
-    name
+    name,
   });
 }
 
@@ -24,21 +26,23 @@ function find(name) {
   name: 'super-catchy'
 }
 */
-async function create(almostPuny) {
-  const result = Joi.validate(almostPuny, schema);
+async function create(almostShort) {
+  const result = Joi.validate(almostShort, schema);
   // result.error === null
   if (result.error === null) {
     const url = await urls.findOne({
-      name: almostPuny.name
+      name: almostShort.name,
     });
     if (!url) {
-      return urls.insert(almostPuny);
+      return urls.insert(almostShort);
     } else {
       return Promise.reject({
         isJoi: true,
-        details: [{
-          message: 'Short name is in use.'
-        }]
+        details: [
+          {
+            message: "Short name is in use.",
+          },
+        ],
       });
     }
   } else {
@@ -48,5 +52,5 @@ async function create(almostPuny) {
 
 module.exports = {
   create,
-  find
+  find,
 };
