@@ -6,7 +6,7 @@ Make any long URL short, also can give your custom slug-key.
 
 ## Demo
 
-Insert gif or link to demo
+![](url-shortener.gif)
 
 ## Tech Stack
 
