@@ -1,8 +1,6 @@
-# Custom-URL-Shortener
+# 🔥 Custom-URL-Shortener
 
 Make any long URL short, also can give your custom slug-key.
-
-- here - [hg4.in](https://www.hg4.in)
 
 ## Demo
 
